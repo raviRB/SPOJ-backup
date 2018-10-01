@@ -8,48 +8,51 @@
 #include<math.h>
 #define MAX 10
 using namespace std;
-
-int main(){
-	int n=50000;
-	int arr[n+1];
-	int index,num;
-	for(int i=0;i<=n;i++)
-		arr[i]=0;
-	for(int i=2;i<=n/2;i++){
-		num =i;
-		index =2;
-		while(num*index<=n){
-			arr[num*index]=1;
-			index++;
+int calc(int num){
+	int arr[100000]={0},div =2,count=0;
+	while(num!=1){
+		cout<<num<<"  "<<div<<" inloop\n";
+		if(num%div==0)
+		{
+			num/=div;
+			if(arr[div]==0){
+				arr[div]++;
+				count++;
+				div=2;
+			}
+		
 		}
+		else
+			div++;
 	}
-	vector <int> prime;
-	
-	for(int i=2;i<=n;i++)
-		if(arr[i]==0)
-			prime.push_back(i);
-			
-	vector <int> v;
-	int value,j;
-	for(int i=0;i<prime.size()-2;i++){
-		j=i+1;
-		for(int z=j+1;z<prime.size();z++)
-			v.push_back(prime[i]*prime[j]*prime[z]);
-	}
-	sort(v.begin(),v.end());
-	cout<<v.size()<<"\n";
+	if(count>=3)
+		return 0;
+	else
+		return 1;
+		
+}
+int main(){
 	int t;
 	cin>>t;
-	while(t--){
-		int pos;
-		cin>>pos;
-		cout<<v[pos-1]<<"\n";
+	int arr[1000],count=2,num=43;
+	arr[0]=30;
+	arr[1]=42;
+	while(count<1000)
+	{
+		cout<<count<<"  count   "<<num<<"\n";
+		if(calc(num)==0)
+		{
+			arr[count]=num;
+			count++;
+		}
+		num++;
 	}
-	
-	
-	
-	
-	
+	while(t--){
+		int n;
+		cin>>n;
+		cout<<arr[n-1]<<"\n";
+		
+	}
 return 0;
 }
 
